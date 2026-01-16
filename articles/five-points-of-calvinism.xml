@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article>
+    <!-- 
+        METADATA 
+        These fields are used for the header and search indexing.
+    -->
+    <title>The Five Points of Calvinism (TULIP)</title>
+    <author>Evan Minich</author>
+
+    <!-- 
+        TAGS 
+        These are used for the "Advanced Filter" feature on the landing page.
+        Each tag should be wrapped in a <tag> element.
+    -->
+    <tags>
+        <tag>Doctrine</tag>
+        <tag>Reformation</tag>
+        <tag>Definitions</tag>
+    </tags>
+
+    <!-- 
+        BODY CONTENT
+        The main text of the article. Use multiple <paragraph> tags.
+        Bible references (e.g., Ephesians 2:8-9) written here are automatically
+        detected and hyperlinked by the website.
+    -->
+    <body>
+        <paragraph>
+            The five points of Calvinism, often summarized by the acronym TULIP, represent key theological principles articulated by John Calvin and later reformers. These points address the doctrines of salvation and God's sovereignty in the process of redemption, as understood by John Calvin.
+        </paragraph>
+        <paragraph>
+            1. Total Depravity: This doctrine states that—as a result of the Fall—every aspect of human nature is corrupted by sin, rendering individuals incapable of choosing God or intentionally performing the will of God (John 6:44).
+        </paragraph>
+        <paragraph>
+            2. Unconditional Election: This point asserts that God has chosen certain individuals for salvation based solely on His sovereign will and not on any foreseen merit or action on their part. This is often referred to as "predestination" by theologians.
+        </paragraph>
+        <paragraph>
+            3. Limited Atonement: According to this doctrine, Christ's atoning sacrifice on the cross was sufficient only for the elect, and will not atone for those who are not predestined to salvation.
+        </paragraph>
+        <paragraph>
+            4. Irresistible Grace: This principle states that when God extends His grace to the elect, it is ultimately effective and cannot be resisted. Those whom God calls will inevitably come to faith in Christ (John 10:27).
+        </paragraph>
+        <paragraph>
+            5. Perseverance of the Saints: This final point concludes that the elect will persevere in faith until the end. They cannot lose their salvation, as they are held fast by God's power and grace (John 10:28-29).
+        </paragraph>
+        <paragraph>
+            Some counterpoints present themselves from scripture. For instance, 1 John 2:2 clearly states that Jesus is the atoning sacrifice "for the sins of the whole world," which challenges the doctrine of Limited Atonement. Additionally, passages like Matthew 23:37 highlight human resistance to God's call, suggesting that grace can indeed be resisted.
+        </paragraph>
+    </body>
+
+    <!-- 
+        SIDEBAR: RELATED ARTICLES
+        Links to other XML files in your 'articles' folder.
+        The 'slug' attribute should match the filename without the .xml extension.
+        (e.g., slug="justification" links to justification.xml)
+    -->
+    <related>
+        <item slug="justification">Justification by Faith</item>
+        <item slug="sanctification">The Process of Sanctification</item>
+    </related>
+
+    <!-- 
+        SIDEBAR: REFERENCES
+        External links and specific Bible citations for the sidebar list.
+        <link>: Creates an external hyperlink (requires 'url' attribute).
+        <bible>: Creates a link to BibleGateway (no URL needed, just text).
+    -->
+    <references>
+        <link url="https://reformationbiblecollege.org/blog/what-are-the-five-points-of-calvinism">What Are the Five Points of Calvinism?</link>
+    </references>
+</article>

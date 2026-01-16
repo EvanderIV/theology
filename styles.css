@@ -1,0 +1,359 @@
+/* --- Base Variables --- */
+:root {
+  --bg-paper: #fdfbf7;
+  --text-ink: #2d2d2d;
+  --accent: #8b2e2e;
+  --border-color: #e7e5e4; /* stone-200 */
+  --card-bg: #ffffff;
+  --sidebar-bg: transparent;
+}
+
+/* --- THEME MODES --- */
+
+/* Dark Mode Overrides */
+body.dark-mode {
+  --bg-paper: #1c1917; /* stone-950 */
+  --text-ink: #e7e5e4; /* stone-200 */
+  --accent: #f87171; /* red-400 */
+  --border-color: #44403c; /* stone-700 */
+  --card-bg: #292524; /* stone-800 */
+  --sidebar-bg: #292524;
+}
+
+/* Force Tailwind classes to respect variables in dark mode */
+body.dark-mode .bg-white {
+  background-color: var(--card-bg) !important;
+}
+body.dark-mode .bg-stone-50 {
+  background-color: #292524 !important;
+}
+body.dark-mode .border-stone-100,
+body.dark-mode .border-stone-200,
+body.dark-mode .border-stone-300 {
+  border-color: var(--border-color) !important;
+}
+body.dark-mode .text-stone-900 {
+  color: #fafaf9 !important;
+}
+body.dark-mode .text-stone-800 {
+  color: #f5f5f4 !important;
+}
+body.dark-mode .text-stone-700 {
+  color: #d6d3d1 !important;
+}
+body.dark-mode .text-stone-600 {
+  color: #a8a29e !important;
+}
+body.dark-mode .text-stone-500 {
+  color: #78716c !important;
+}
+body.dark-mode .bg-stone-200 {
+  background-color: #44403c !important;
+} /* Skeleton loaders */
+body.dark-mode .text-red-800 {
+  color: #f87171 !important;
+}
+body.dark-mode .hover\:text-red-800:hover {
+  color: #fca5a5 !important;
+}
+body.dark-mode input {
+  background-color: #292524 !important;
+  color: white !important;
+  border-color: #44403c !important;
+}
+
+/* FIX: Ensure hover states on links turn white in dark mode, not black */
+body.dark-mode .hover\:text-stone-900:hover {
+  color: #fafaf9 !important;
+}
+body.dark-mode .hover\:text-stone-800:hover {
+  color: #f5f5f4 !important;
+}
+
+/* Monospace Mode */
+body.mono-mode,
+body.mono-mode h1,
+body.mono-mode h2,
+body.mono-mode h3,
+body.mono-mode p,
+body.mono-mode a,
+body.mono-mode .ui-font {
+  font-family: "JetBrains Mono", "Courier New", monospace !important;
+  letter-spacing: -0.02em;
+}
+
+/* High Contrast Mode (Light Base) */
+body.high-contrast {
+  --bg-paper: #ffffff;
+  --text-ink: #000000;
+  --accent: #cc0000;
+  --border-color: #000000;
+  --card-bg: #ffffff;
+  --sidebar-bg: #ffffff;
+}
+
+/* High Contrast Mode (Dark Base) */
+body.high-contrast.dark-mode {
+  --bg-paper: #000000;
+  --text-ink: #ffffff;
+  --accent: #ffff00;
+  --border-color: #ffffff;
+  --card-bg: #000000;
+  --sidebar-bg: #000000;
+}
+
+/* Strict Overrides for High Contrast (Flattens Grays) */
+body.high-contrast .text-stone-400,
+body.high-contrast .text-stone-500,
+body.high-contrast .text-stone-600,
+body.high-contrast .text-stone-700,
+body.high-contrast .text-stone-800,
+body.high-contrast .text-stone-900 {
+  color: var(--text-ink) !important;
+}
+
+body.high-contrast .bg-stone-50,
+body.high-contrast .bg-stone-100,
+body.high-contrast .bg-white {
+  background-color: var(--bg-paper) !important;
+  border-color: var(--border-color) !important;
+}
+
+body.high-contrast input {
+  background-color: var(--bg-paper) !important;
+  color: var(--text-ink) !important;
+  border: 2px solid var(--border-color) !important;
+}
+
+/* --- Standard Styles --- */
+body {
+  background-color: var(--bg-paper);
+  color: var(--text-ink);
+  font-family: "Merriweather", serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+.ui-font,
+input,
+button,
+select,
+.tag-font {
+  font-family: "Inter", sans-serif;
+}
+
+/* Invisible Link Styling for In-Text References */
+a.bible-ref {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 10;
+}
+body.dark-mode a.bible-ref {
+  border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+a.bible-ref:hover {
+  border-bottom: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+/* Tooltip Animation */
+.tooltip-container {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  z-index: 9999; /* Ensure it floats above everything */
+}
+
+.tooltip-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Dark mode tooltip colors */
+body.dark-mode .tooltip-container {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+  color: var(--text-ink);
+}
+
+/* High contrast tooltip fixes */
+body.high-contrast .tooltip-container {
+  background-color: var(--bg-paper);
+  border: 2px solid var(--border-color);
+  color: var(--text-ink);
+}
+body.high-contrast .tooltip-container .context-line {
+  background-color: var(--text-ink);
+  opacity: 1;
+}
+
+/* Context Visualization (Fake Lines) */
+.context-line {
+  height: 6px;
+  background-color: currentColor;
+  opacity: 0.1;
+  border-radius: 2px;
+  margin-bottom: 4px;
+}
+.context-group-top {
+  mask-image: linear-gradient(to bottom, transparent, black);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black);
+}
+.context-group-bottom {
+  mask-image: linear-gradient(to top, transparent, black);
+  -webkit-mask-image: linear-gradient(to top, transparent, black);
+}
+
+/* Loading Spinner */
+.spinner {
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border-left-color: var(--accent);
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Custom Input Search Focus */
+.search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 4px 6px -1px rgba(139, 46, 46, 0.1),
+    0 2px 4px -1px rgba(139, 46, 46, 0.06);
+}
+
+/* --- TOGGLE SLIDER STYLES --- */
+.toggle-checkbox:checked {
+  right: 0;
+  border-color: var(--accent);
+}
+.toggle-checkbox:checked + .toggle-label {
+  background-color: var(--accent);
+}
+.toggle-checkbox:checked + .toggle-label:before {
+  transform: translateX(100%);
+}
+
+.toggle-label {
+  width: 44px;
+  height: 24px;
+  position: relative;
+  display: block;
+  background: #e5e7eb;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.toggle-label:before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+body.dark-mode .toggle-label {
+  background: #57534e;
+}
+
+/* High Contrast Toggles */
+body.high-contrast .toggle-label {
+  border: 2px solid var(--border-color);
+  background: var(--bg-paper);
+}
+body.high-contrast .toggle-label:before {
+  background: var(--border-color);
+  top: 0;
+  left: 0;
+}
+body.high-contrast .toggle-checkbox:checked + .toggle-label {
+  background: var(--border-color);
+}
+body.high-contrast .toggle-checkbox:checked + .toggle-label:before {
+  background: var(--bg-paper);
+}
+
+/* --- TAG FILTER STYLES --- */
+.tag-checkbox:checked + .tag-badge {
+  background-color: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+.tag-badge {
+  transition: all 0.2s ease;
+  user-select: none;
+}
+body.dark-mode .tag-badge {
+  background-color: transparent;
+  border-color: var(--border-color);
+  color: var(--text-ink);
+}
+body.dark-mode .tag-checkbox:checked + .tag-badge {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: #1c1917;
+}
+
+/* Operator Radio Styles */
+.op-radio:checked + label {
+  background-color: var(--text-ink);
+  color: var(--bg-paper);
+  border-color: var(--text-ink);
+}
+body.dark-mode .op-radio:checked + label {
+  background-color: var(--text-ink);
+  color: var(--bg-paper);
+}
+
+.fade-in {
+  animation: fadeInSlide 0.5s ease forwards;
+}
+
+.fade-out {
+  animation: fadeOutSlide 0.5s ease forwards;
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutSlide {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}

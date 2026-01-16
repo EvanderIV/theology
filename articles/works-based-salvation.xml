@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article>
+    <!-- 
+        METADATA 
+        These fields are used for the header and search indexing.
+    -->
+    <title>Works-Based Salvation</title>
+    <author>Evan Minich</author>
+
+    <!-- 
+        TAGS 
+        These are used for the "Advanced Filter" feature on the landing page.
+        Each tag should be wrapped in a <tag> element.
+    -->
+    <tags>
+        <tag>Soteriology</tag>
+        <tag>Grace</tag>
+        <tag>Reformation</tag>
+        <tag>Doctrine</tag>
+        <tag>Definitions</tag>
+    </tags>
+
+    <!-- 
+        BODY CONTENT
+        The main text of the article. Use multiple <paragraph> tags.
+        Bible references (e.g., Ephesians 2:8-9) written here are automatically
+        detected and hyperlinked by the website.
+    -->
+    <body>
+        <paragraph>
+            Salvation by works is a doctrine taught in the early Roman Catholic Church—as well as Eastern Orthadox churches, Latter-day Saints (Mormons), and Jehovah's Witnesses—which stated that good works contributes to a person's salvation, and that faith in the sacrifice of Jesus is not soley sufficient to save one from Hell.
+        </paragraph>
+        <paragraph>
+            This doctrine was challenged during the Protestant Reformation, particularly by Martin Luther, who emphasized justification by faith alone (sola fide), citing Ephesians 2:8-9. The Reformers argued that salvation is a gift of God's grace, received through faith, and not earned by human efforts or works.
+        </paragraph>
+        <paragraph>
+            Most modern churches affirm salvation by grace through faith (sola fide), while recognizing that good works are a natural outcome (often coined "fruit") of genuine faith.
+        </paragraph>
+    </body>
+
+    <!-- 
+        SIDEBAR: RELATED ARTICLES
+        Links to other XML files in your 'articles' folder.
+        The 'slug' attribute should match the filename without the .xml extension.
+        (e.g., slug="justification" links to justification.xml)
+    -->
+    <related>
+        <item slug="justification">Justification by Faith</item>
+        <item slug="sanctification">The Process of Sanctification</item>
+    </related>
+
+    <!-- 
+        SIDEBAR: REFERENCES
+        External links and specific Bible citations for the sidebar list.
+        <link>: Creates an external hyperlink (requires 'url' attribute).
+        <bible>: Creates a link to BibleGateway (no URL needed, just text).
+    -->
+    <references>
+        <link url="https://www.catholic.com/qa/why-does-the-church-teach-that-works-can-obtain-salvation">Does the Catholic Church Teach That Works Alone Can Obtain Salvation?</link>
+    </references>
+</article>
