@@ -43,6 +43,30 @@ if (is_dir($articlesDir)) {
         }
     }
 }
+
+// --- SERVER SIDE LOGIC ---
+// Scan the 'versions' directory to get available Bible versions.
+$versionsDir = 'versions';
+$bibleVersions = [];
+
+if (is_dir($versionsDir)) {
+    $files = glob($versionsDir . '/*.json');
+    foreach ($files as $file) {
+        $content = json_decode(file_get_contents($file), true);
+        if (isset($content['__VERSION__'])) {
+            $filename = basename($file, '.json');
+            $bibleVersions[$filename] = $content['__VERSION__'] . " ($filename)";
+        }
+    }
+}
+
+// --- SERVER SIDE LOGIC ---
+// Extend libraryIndex to include a mapping of slugs to titles for related readings.
+$articleTitles = [];
+
+foreach ($libraryIndex as $article) {
+    $articleTitles[$article['slug']] = $article['title'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -114,7 +138,7 @@ if (is_dir($articlesDir)) {
                         </div>
                     </div>
 
-                    <div class="flex items-center justify-between">
+                    <div class="flex items-center justify-between mb-4">
                         <div class="flex flex-col">
                             <span class="text-sm font-medium text-stone-700 ui-font">High Contrast</span>
                             <span class="text-xs text-stone-400 ui-font">Sharpen definition</span>
@@ -122,6 +146,20 @@ if (is_dir($articlesDir)) {
                         <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
                             <input type="checkbox" name="toggle-contrast" id="toggle-contrast" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer hidden"/>
                             <label for="toggle-contrast" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                        </div>
+                    </div>
+
+                    <!-- Dropdown for Bible Version Selector -->
+                    <div class="mb-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-medium text-stone-700 ui-font">Bible Translation</span>
+                        </div>
+                        <div class="mt-2 flex justify-center">
+                            <select id="bible-version-selector" class="p-2 border border-stone-300 rounded-sm text-stone-700 bg-white">
+                                <?php foreach ($bibleVersions as $key => $label): ?>
+                                    <option value="<?= $key ?>" <?= $key === 'ESV' ? 'selected' : '' ?>><?= $label ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -223,7 +261,7 @@ if (is_dir($articlesDir)) {
                     <h3 class="ui-font text-xs font-bold uppercase tracking-widest text-stone-400 mb-4">Sources & References</h3>
                     <ul id="reference-list" class="text-sm space-y-4 text-stone-600"></ul>
                 </div>
-                <div class="bg-stone-50 p-6 rounded-sm border border-stone-100">
+                <div id="sola-scriptura" class="bg-stone-50 p-6 rounded-sm border border-stone-100">
                     <h3 class="ui-font font-serif italic text-lg text-stone-800 mb-2">Sola Scriptura</h3>
                     <p class="text-xs leading-relaxed text-stone-500 ui-font">
                         This platform is designed to facilitate deep theological reading without distraction. Hover over scripture references to view the text in context.
@@ -264,7 +302,9 @@ if (is_dir($articlesDir)) {
     <script>
         // --- 1. DATA INJECTION FROM PHP ---
         const LIBRARY_INDEX = <?php echo json_encode($libraryIndex); ?> || [];
-        
+        const BIBLE_VERSIONS = <?php echo json_encode($bibleVersions); ?> || {};
+        const ARTICLE_TITLES = <?php echo json_encode($articleTitles); ?>;
+
         // --- Configuration ---
         const API_ENDPOINT = "get_verse.php?reference="; // Updated to use local backend API
 
@@ -276,6 +316,7 @@ if (is_dir($articlesDir)) {
                 this.contrastToggle = document.getElementById('toggle-contrast');
                 this.dropdown = document.getElementById('settings-dropdown');
                 this.btn = document.getElementById('settings-btn');
+                this.versionSelector = document.getElementById('bible-version-selector');
 
                 this.loadState('darkMode', this.darkToggle, this.toggleDark);
                 this.loadState('monoMode', this.monoToggle, this.toggleMono);
@@ -295,6 +336,25 @@ if (is_dir($articlesDir)) {
                 this.darkToggle.addEventListener('change', () => this.saveState('darkMode', this.darkToggle.checked, this.toggleDark));
                 this.monoToggle.addEventListener('change', () => this.saveState('monoMode', this.monoToggle.checked, this.toggleMono));
                 this.contrastToggle.addEventListener('change', () => this.saveState('contrastMode', this.contrastToggle.checked, this.toggleContrast));
+
+                // Bible version change event
+                this.versionSelector.addEventListener('change', () => {
+                    const selectedVersion = this.versionSelector.value;
+                    localStorage.setItem('bibleVersion', selectedVersion);
+                    
+                    // Clear the cache for verses
+                    if (window.cache) {
+                        Object.keys(window.cache).forEach(key => delete window.cache[key]);
+                    }
+
+                    // Optionally, you can trigger a reload or re-initialization if needed
+                    console.log(`Bible version changed to: ${selectedVersion}. Cache cleared. Refreshing...`);
+                    location.reload();
+                });
+
+                // Load the saved Bible version
+                const savedVersion = localStorage.getItem('bibleVersion') || 'ESV';
+                this.versionSelector.value = savedVersion;
             },
 
             loadState(key, checkbox, action) {
@@ -536,17 +596,20 @@ if (is_dir($articlesDir)) {
                 document.getElementById('sidebar-related').classList.remove('hidden');
                 relatedItems.forEach(item => {
                     const li = document.createElement('li');
-                    li.innerHTML = `<a href="?article=${item.getAttribute('slug')}" class="block p-3 bg-white border border-stone-200 shadow-sm hover:border-stone-400 hover:shadow-md transition duration-200 rounded-sm">
+                    li.innerHTML = `<a href="?article=${item.getAttribute('slug')}" class="block p-3 bg-white border border-stone-200 shadow-sm hover:border-stone-400 hover:shadow-md transition duration-200 rounded-sm" data-related-slug="${item.getAttribute('slug')}">
                         <span class="font-serif text-stone-800">${item.textContent}</span>
                     </a>`;
                     list.appendChild(li);
                 });
+                resolveRelatedTitles(); // Ensure titles are resolved after adding related items
             }
 
             const manualRefs = xmlDoc.querySelectorAll("references > link, references > bible");
             const list = document.getElementById('reference-list');
             list.innerHTML = ''; 
             const existingRefTexts = new Set();
+            const versionSelector = document.getElementById('bible-version-selector');
+            const selectedVersion = versionSelector ? versionSelector.value : 'ESV';
 
             if (manualRefs.length > 0 || foundVerses.size > 0) {
                 document.getElementById('sidebar-references').classList.remove('hidden');
@@ -563,7 +626,7 @@ if (is_dir($articlesDir)) {
                             </a>`;
                         } else if (ref.tagName === 'bible') {
                             const encodedRef = encodeURIComponent(refText);
-                            li.innerHTML = `<a href="https://www.biblegateway.com/passage/?search=${encodedRef}" target="_blank" class="flex items-center hover:text-stone-900 group">
+                            li.innerHTML = `<a href="https://www.biblegateway.com/passage/?search=${encodedRef}&version=${selectedVersion}" target="_blank" class="flex items-center hover:text-stone-900 group">
                                 <span class="w-2 h-2 bg-stone-300 rounded-full mr-3 group-hover:bg-red-800 transition"></span>
                                 <span class="italic font-serif">${refText}</span>
                             </a>`;
@@ -578,7 +641,7 @@ if (is_dir($articlesDir)) {
                         existingRefTexts.add(normalizedVerse);
                         const li = document.createElement('li');
                         const encodedRef = encodeURIComponent(verse);
-                        li.innerHTML = `<a href="https://www.biblegateway.com/passage/?search=${encodedRef}" target="_blank" class="flex items-center hover:text-stone-900 group">
+                        li.innerHTML = `<a href="https://www.biblegateway.com/passage/?search=${encodedRef}&version=${selectedVersion}" target="_blank" class="flex items-center hover:text-stone-900 group">
                             <span class="w-2 h-2 bg-stone-300 rounded-full mr-3 group-hover:bg-red-800 transition"></span>
                             <span class="italic font-serif">${verse}</span>
                         </a>`;
@@ -586,7 +649,7 @@ if (is_dir($articlesDir)) {
                     }
                 });
             } else {
-                 document.getElementById('sidebar-references').classList.add('hidden');
+                document.getElementById('sidebar-references').classList.add('hidden');
             }
 
             initTooltips();
@@ -595,12 +658,15 @@ if (is_dir($articlesDir)) {
         // --- 6. Utilities ---
         function linkifyBibleVerses(text, foundVersesSet = null) {
             const regex = /\b((?:1|2|3)?\s?[A-Za-z]+)\s(\d+):(\d+)(?:-(\d+))?/g;
+            const versionSelector = document.getElementById('bible-version-selector');
+            const selectedVersion = versionSelector ? versionSelector.value : 'ESV';
+
             return text.replace(regex, (match) => {
                 if (foundVersesSet) {
                     foundVersesSet.add(match);
                 }
                 const encodedRef = encodeURIComponent(match);
-                return `<a href="https://www.biblegateway.com/passage/?search=${encodedRef}&version=ESV" target="_blank" class="bible-ref" data-ref="${match}">${match}</a>`;
+                return `<a href="https://www.biblegateway.com/passage/?search=${encodedRef}&version=${selectedVersion}" target="_blank" class="bible-ref" data-ref="${match}">${match}</a>`;
             });
         }
 
@@ -667,7 +733,12 @@ if (is_dir($articlesDir)) {
             }
 
             try {
-                const response = await fetch(`${API_ENDPOINT}${encodeURIComponent(reference)}`);
+                // Get the selected Bible version
+                const versionSelector = document.getElementById('bible-version-selector');
+                const selectedVersion = versionSelector ? versionSelector.value : 'ESV';
+
+                // Append the selected version to the API call
+                const response = await fetch(`${API_ENDPOINT}${encodeURIComponent(reference)}&version=${selectedVersion}`);
                 if (response.ok) {
                     const data = await response.json();
                     if (data && data.text) {
@@ -689,10 +760,10 @@ if (is_dir($articlesDir)) {
                         const nextVerseRef = `${book} ${chapter}:${endVerse + 1}`;
 
                         const priorVersePromise = startVerse > 1
-                            ? fetch(`${API_ENDPOINT}${encodeURIComponent(priorVerseRef)}`).then(res => res.ok ? res.json() : null)
+                            ? fetch(`${API_ENDPOINT}${encodeURIComponent(priorVerseRef)}&version=${selectedVersion}`).then(res => res.ok ? res.json() : null)
                             : Promise.resolve(null);
 
-                        const nextVersePromise = fetch(`${API_ENDPOINT}${encodeURIComponent(nextVerseRef)}`).then(res => res.ok ? res.json() : null);
+                        const nextVersePromise = fetch(`${API_ENDPOINT}${encodeURIComponent(nextVerseRef)}&version=${selectedVersion}`).then(res => res.ok ? res.json() : null);
 
                         const [priorVerseData, nextVerseData] = await Promise.all([priorVersePromise, nextVersePromise]);
 
@@ -779,6 +850,38 @@ if (is_dir($articlesDir)) {
                 tooltip.classList.remove('tooltip-active');
             }, 500); // Match the animation duration
         }
+
+        // Ensure dark mode styling is based on site preferences
+        (function() {
+            const selector = document.getElementById('bible-version-selector');
+            const updateSelectorTheme = () => {
+                if (document.body.classList.contains('dark-mode')) {
+                    selector.classList.add('dark:text-stone-300', 'dark:bg-stone-800', 'dark:border-stone-600');
+                } else {
+                    selector.classList.remove('dark:text-stone-300', 'dark:bg-stone-800', 'dark:border-stone-600');
+                }
+            };
+
+            // Initial check
+            updateSelectorTheme();
+
+            // Observe changes to the body class
+            const observer = new MutationObserver(updateSelectorTheme);
+            observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+        })();
+
+        // --- CLIENT SIDE LOGIC ---
+        function resolveRelatedTitles() {
+            const relatedLinks = document.querySelectorAll('[data-related-slug]');
+            relatedLinks.forEach(link => {
+                const slug = link.getAttribute('data-related-slug');
+                if (ARTICLE_TITLES[slug]) {
+                    link.textContent = ARTICLE_TITLES[slug];
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', resolveRelatedTitles);
     </script>
 </body>
 </html>

@@ -130,7 +130,9 @@ body {
   background-color: var(--bg-paper);
   color: var(--text-ink);
   font-family: "Merriweather", serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 h1,
@@ -168,7 +170,9 @@ a.bible-ref:hover {
 .tooltip-container {
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
   pointer-events: none;
   z-index: 9999; /* Ensure it floats above everything */
 }
@@ -237,7 +241,8 @@ body.high-contrast .tooltip-container .context-line {
 .search-input:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 4px 6px -1px rgba(139, 46, 46, 0.1),
+  box-shadow:
+    0 4px 6px -1px rgba(139, 46, 46, 0.1),
     0 2px 4px -1px rgba(139, 46, 46, 0.06);
 }
 
@@ -356,4 +361,18 @@ body.dark-mode .op-radio:checked + label {
     opacity: 0;
     transform: translateY(10px);
   }
+}
+
+#bible-version-selector {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+#sola-scriptura {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
 }
