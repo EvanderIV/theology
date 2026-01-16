@@ -4,7 +4,7 @@
         METADATA 
         These fields are used for the header and search indexing.
     -->
-    <title>Is Homosexuality a Sin?</title>
+    <title>Is Transsexuality a Sin?</title>
     <author>Evan Minich</author>
 
     <!-- 
@@ -24,10 +24,7 @@
     -->
     <body>
         <paragraph>
-            A common misconception by non-Christians is that homosexuality itself is a sin according to the Bible. However, the Bible only ever condemns homosexual acts, not the feelings or temptations that come with homosexuality (Note the use of "active" language in 1 Timothy 1:10, 1 Corinthians 6:9, and Leviticus 20:13).
-        </paragraph>
-        <paragraph>
-            Neither being homosexual nor homosexual acts prevent one from being a Christian or receiving the gift of salvation, though practicing homosexuality with the mindset that God will forgive it is a sign of an unrepentant heart which has not been transformed by Christ's sacrifice and the gift of salvation (Romans 6:1-2).
+            
         </paragraph>
     </body>
 
@@ -38,7 +35,7 @@
         (e.g., slug="justification" links to justification.xml)
     -->
     <related>
-        <item slug="is-transsexuality-a-sin"></item>
+        <item slug="is-homosexuality-a-sin"></item>
     </related>
 
     <!-- 
@@ -48,6 +45,6 @@
         <bible>: Creates a link to BibleGateway (no URL needed, just text).
     -->
     <references>
-        <link url="https://reformationbiblecollege.org/blog/what-are-the-five-points-of-calvinism">What Are the Five Points of Calvinism?</link>
+        <link url="https://answersingenesis.org/family/marriage/paganism-and-the-transexual-revolution/">Paganism and the Transsexual Revolution</link>
     </references>
 </article>
