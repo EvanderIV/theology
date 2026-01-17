@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article>
+    <!-- 
+        METADATA 
+        These fields are used for the header and search indexing.
+    -->
+    <title>Why Does God Allow Suffering?</title>
+    <author>Evan Minich</author>
+
+    <!-- 
+        TAGS 
+        These are used for the "Advanced Filter" feature on the landing page.
+        Each tag should be wrapped in a <tag> element.
+    -->
+    <tags>
+        <tag>Grace</tag>
+    </tags>
+
+    <!-- 
+        BODY CONTENT
+        The main text of the article. Use multiple <paragraph> tags.
+        Bible references (e.g., Ephesians 2:8-9) written here are automatically
+        detected and hyperlinked by the website.
+    -->
+    <body>
+        <paragraph>
+            We live in a world tainted by sin, and riddled with suffering, with seemingly little to no intervention from God. This often leads people to doubt God's goodness or His existence altogether. To understand this better and at the same time answer the question, we will walk through the purpose of suffering in a broken world.
+        </paragraph>
+        <paragraph>
+            <bold>1. Suffering is temporary.</bold> 1 Peter 5:10 and Romans 8:18 seem to minimize the suffering we experience, as if it means nothing in the grand scheme of things. While true—the suffering we experience now is nothing compared to the joys of heaven—this perspective leaves some feeling hopeless in the present moment. For this reason we are offered comfort in the form of two promises: God's perfect plan works all things for good (Romans 8:28), and that peace awaits those who trust in Christ and cast their anxieties on Him (Matthew 11:28, Psalm 55:22, Philippians 4:6-7).
+        </paragraph>
+        <paragraph>
+            <bold>2. Suffering proves our need for a savior.</bold> The brokenness of the world shows us the pitfalls of sin, and our inability to save ourselves from it (Romans 5:12). Were the world imperfect yet without suffering, we would not recognize our need for a savior. As it stands, all creation experiences the effects of the Fall (Romans 8:22-23).
+        </paragraph>
+        <paragraph>
+            <bold>3. Suffering leads us to Christ, and glorifies God.</bold> In our suffering, we are driven to seek comfort and hope beyond what this world can provide. This search inevitably ends with Jesus, who is the perfect sacrifice and atonement for our sins (John 14:6, 1 Peter 2:24). In this way, God is glorified—not only through our salvation, but also through the display of His power and grace in our lives (2 Corinthians 12:9-10).
+        </paragraph>
+    </body>
+
+    <!-- 
+        SIDEBAR: RELATED ARTICLES
+        Links to other XML files in your 'articles' folder.
+        The 'slug' attribute should match the filename without the .xml extension.
+        (e.g., slug="justification" links to justification.xml)
+    -->
+    <related>
+        
+    </related>
+
+    <!-- 
+        SIDEBAR: REFERENCES
+        External links and specific Bible citations for the sidebar list.
+        <link>: Creates an external hyperlink (requires 'url' attribute).
+        <bible>: Creates a link to BibleGateway (no URL needed, just text).
+    -->
+    <references>
+        <link url="https://www.crossway.org/articles/why-does-god-allow-suffering/">Why Does God Allow Suffering?</link>
+        <link url="https://www.cslewisinstitute.org/resources/why-would-a-good-god-allow-so-much-suffering/">Why Would a Good God Allow So Much Suffering?</link>
+    </references>
+</article>

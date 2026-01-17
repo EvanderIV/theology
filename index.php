@@ -584,7 +584,13 @@ foreach ($libraryIndex as $article) {
             const paragraphs = xmlDoc.querySelectorAll("body > paragraph");
             let bodyHTML = "";
             paragraphs.forEach(p => {
-                let text = p.textContent.trim();
+                let text = p.innerHTML.trim();
+
+                // Replace custom XML tags with corresponding HTML tags
+                text = text.replace(/<bold>(.*?)<\/bold>/g, '<strong>$1</strong>');
+                text = text.replace(/<italics>(.*?)<\/italics>/g, '<em>$1</em>');
+                text = text.replace(/<underline>(.*?)<\/underline>/g, '<u>$1</u>');
+
                 text = linkifyBibleVerses(text, foundVerses);
                 bodyHTML += `<p class="mb-6">${text}</p>`;
             });
