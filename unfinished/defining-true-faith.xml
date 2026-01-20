@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article>
+    <!-- 
+        METADATA 
+        These fields are used for the header and search indexing.
+    -->
+    <title>Defining True Faith</title>
+    <author>Evan Minich</author>
+
+    <!-- 
+        TAGS 
+        These are used for the "Advanced Filter" feature on the landing page.
+        Each tag should be wrapped in a <tag> element.
+    -->
+    <tags>
+        <tag>Science</tag>
+    </tags>
+
+    <!-- 
+        BODY CONTENT
+        The main text of the article. Use multiple <paragraph> tags.
+        Bible references (e.g., Ephesians 2:8-9) written here are automatically
+        detected and hyperlinked by the website.
+    -->
+    <body>
+        <paragraph>
+            Faith in God is often mistaken to mean blind belief without evidence, when in reality Christian faith is
+        </paragraph>
+    </body>
+
+    <!-- 
+        SIDEBAR: RELATED ARTICLES
+        Links to other XML files in your 'articles' folder.
+        The 'slug' attribute should match the filename without the .xml extension.
+        (e.g., slug="justification" links to justification.xml)
+    -->
+    <related>
+        
+    </related>
+
+    <!-- 
+        SIDEBAR: REFERENCES
+        External links and specific Bible citations for the sidebar list.
+        <link>: Creates an external hyperlink (requires 'url' attribute).
+        <bible>: Creates a link to BibleGateway (no URL needed, just text).
+    -->
+    <references>
+        <link url="https://answersingenesis.org/what-is-science/science-or-the-bible/">Science or the Bible?</link>
+        <link url="https://answersingenesis.org/geology/radiometric-dating/conflicting-ages-tertiary-basalt-and-contained-fossilised-wood-crinum-central-queensland-australia/">Conflicting ‘Ages’ of Tertiary Basalt and Contained Fossilised Wood, Crinum, Central Queensland, Australia</link>
+    </references>
+</article>

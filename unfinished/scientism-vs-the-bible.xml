@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article>
+    <!-- 
+        METADATA 
+        These fields are used for the header and search indexing.
+    -->
+    <title>Scientism vs. The Bible</title>
+    <author>Evan Minich</author>
+
+    <!-- 
+        TAGS 
+        These are used for the "Advanced Filter" feature on the landing page.
+        Each tag should be wrapped in a <tag> element.
+    -->
+    <tags>
+        <tag>Science</tag>
+    </tags>
+
+    <!-- 
+        BODY CONTENT
+        The main text of the article. Use multiple <paragraph> tags.
+        Bible references (e.g., Ephesians 2:8-9) written here are automatically
+        detected and hyperlinked by the website.
+    -->
+    <body>
+        <paragraph>
+            A popular belief amongst non-Christians is that science can or has already disproved the Bible. This stems from the notion that, being a religious text, the Bible is inherently unscientific and therefore incompatible with scientific understanding. This belief is often tied to scientism, the idea that science is the ultimate path to knowledge and that anything outside its scope is invalid.
+        </paragraph>
+        <paragraph>
+            Some might poke fun at the Bible for its accounts of miracles or its creation narrative, claiming that these stories contradict established scientific facts. Not only could these theories not be further from the truth, they also place an impossible burden on science to prove the origin of the universe, life, and humanity. This article addresses some of scientism's most common arguments against the Bible's authenticity.
+        </paragraph>
+        <paragraph>
+            <bold>1. The Bible contradicts scientific facts.</bold> Many critics point to specific biblical passages that seem to conflict with modern scientific understanding, such as the creation account in Genesis or the occurrence of miracles. As it turns out, these arguments are often based on falsified evidence such as carbon dating, which has been shown to inflate the age of artifacts or their surrounding environment by millions or even billions of years. Additionally, many supposed contradictions arise from misinterpretations of the biblical text or a lack of understanding of the scientific concepts involved, leaving only half-baked claims backed only by "scientific" speculation.
+        </paragraph>
+        <paragraph>
+            <bold>2. Evolution disproves the Genesis account.</bold> The theory of evolution is frequently cited as evidence against the biblical creation narrative, claiming that God had no hand in the design of life. This is a loaded claim, given that evolution itself is merely a theory built on unproven assumptions and gaps in the fossil record. Even if evolution were true, it would not negate the possibility of divine creation, as some Christians hold the view of theistic evolution, where God ordains evolutionary processes to bring about life. Either way, evolution remains a theory abused as an argument, not evidence against the Bible.
+        </paragraph>
+    </body>
+
+    <!-- 
+        SIDEBAR: RELATED ARTICLES
+        Links to other XML files in your 'articles' folder.
+        The 'slug' attribute should match the filename without the .xml extension.
+        (e.g., slug="justification" links to justification.xml)
+    -->
+    <related>
+        
+    </related>
+
+    <!-- 
+        SIDEBAR: REFERENCES
+        External links and specific Bible citations for the sidebar list.
+        <link>: Creates an external hyperlink (requires 'url' attribute).
+        <bible>: Creates a link to BibleGateway (no URL needed, just text).
+    -->
+    <references>
+        <link url="https://answersingenesis.org/what-is-science/science-or-the-bible/">Science or the Bible?</link>
+        <link url="https://answersingenesis.org/geology/radiometric-dating/conflicting-ages-tertiary-basalt-and-contained-fossilised-wood-crinum-central-queensland-australia/">Conflicting ‘Ages’ of Tertiary Basalt and Contained Fossilised Wood, Crinum, Central Queensland, Australia</link>
+    </references>
+</article>

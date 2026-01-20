@@ -274,7 +274,7 @@ foreach ($libraryIndex as $article) {
     <!-- Footer -->
     <footer class="border-t border-stone-200 py-8 mt-12">
         <div class="max-w-6xl mx-auto px-6 text-center text-stone-400 text-xs ui-font">
-            &copy; <?php echo date("Y"); ?> Theological Discourse. Designed for focus.
+            &copy; <?php echo date("Y"); ?> eminich.com
         </div>
     </footer>
 
